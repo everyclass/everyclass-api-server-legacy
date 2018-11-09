@@ -4,7 +4,7 @@ import sys
 import logbook
 import logbook.queues
 from elasticapm.contrib.flask import ElasticAPM
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify
 from raven.contrib.flask import Sentry
 from raven.handlers.logbook import SentryHandler
 
@@ -19,7 +19,7 @@ def create_app(offline=False) -> Flask:
     """
     from everyclass.api_server.db.dao import new_user_id_sequence
     from everyclass.api_server.db.mysql import get_connection, init_pool
-    from everyclass.api_server.utils.log import LogstashHandler, LogstashFormatter, LOG_FORMAT_STRING
+    from everyclass.utils.log import LogstashHandler, LOG_FORMAT_STRING
 
     app = Flask(__name__)
 
