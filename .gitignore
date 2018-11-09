@@ -117,9 +117,9 @@ $RECYCLE.BIN/
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
-everyclass/__pycache__/
-everyclass/api_server/__pycache__/
-everyclass/api_server/api/__pycache__/
-everyclass/api_server/config/__pycache__/
-everyclass/api_server/db/__pycache__/
-everyclass/api_server/utils/__pycache__/
+**__pycache__
+
+### Project specific
+everyclass/api_server/config/development.py
+!everyclass/api_server/config/__init__.py
+!everyclass/api_server/config/default.py
