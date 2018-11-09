@@ -74,9 +74,7 @@ def create_app(offline=False) -> Flask:
         logstash_handler = LogstashHandler(host=app.config['LOGSTASH']['HOST'],
                                            port=app.config['LOGSTASH']['PORT'],
                                            release=app.config['GIT_DESCRIBE'],
-                                           bubble=True,
-                                           logger=logger,
-                                           filter=lambda r, h: r.level >= 11)  # do not send DEBUG
+                                           logger=logger)
         logger.handlers.append(logstash_handler)
 
     # 初始化数据库

@@ -158,8 +158,15 @@ class LogstashHandler(Handler):
         handler = LogstashHandler('127.0.0.1', port='8888')
     """
 
-    def __init__(self, host, port, flush_threshold=1, level=NOTSET, filter=None, bubble=True,
-                 flush_time=5, queue_max_len=1000, logger=None, release=None):
+    def __init__(self, host, port,
+                 flush_threshold=1,
+                 level=NOTSET,
+                 filter=lambda r, h: r.level >= 11,
+                 bubble=True,
+                 flush_time=5,
+                 queue_max_len=1000,
+                 logger=None,
+                 release=None):
         Handler.__init__(self, level, filter, bubble)
 
         self.address = (host, port)
