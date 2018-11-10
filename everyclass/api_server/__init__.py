@@ -2,7 +2,6 @@ import copy
 import sys
 
 import logbook
-import logbook.queues
 from elasticapm.contrib.flask import ElasticAPM
 from flask import Flask, jsonify
 from raven.contrib.flask import Sentry
