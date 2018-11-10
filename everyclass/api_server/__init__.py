@@ -19,7 +19,8 @@ def create_app(offline=False) -> Flask:
     """
     from everyclass.api_server.db.dao import new_user_id_sequence
     from everyclass.api_server.db.mysql import get_connection, init_pool
-    from everyclass.utils.log import LogstashHandler, LOG_FORMAT_STRING
+    from everyclass.utils.logbook_logstash.handler import LogstashHandler
+    from everyclass.utils.logbook_logstash.formatter import LOG_FORMAT_STRING
 
     app = Flask(__name__)
 
