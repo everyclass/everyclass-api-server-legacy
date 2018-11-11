@@ -16,8 +16,6 @@ def create_app(offline=False) -> Flask:
     """创建 flask app
     @param offline: 如果设置为 `True`，则为离线模式。此模式下不会连接到 Sentry 和 ElasticAPM
     """
-    from everyclass.api_server.db.dao import new_user_id_sequence
-    from everyclass.api_server.db.mysql import get_connection, init_pool
     from everyclass.utils.logbook_logstash.handler import LogstashHandler
     from everyclass.utils.logbook_logstash.formatter import LOG_FORMAT_STRING
 
@@ -77,15 +75,15 @@ def create_app(offline=False) -> Flask:
                                            logger=logger)
         logger.handlers.append(logstash_handler)
 
-    # 初始化数据库
-    if not offline and (app.config['CONFIG_NAME'] in ("production", "staging", "testing", "development")):
-        init_pool(app)
-
     # 导入并注册 blueprints
     from everyclass.api_server.views import main_blueprint as main_blueprint
     from everyclass.api_server.api import api_v1 as api_blueprint
     app.register_blueprint(main_blueprint)
     app.register_blueprint(api_blueprint, url_prefix='/api/v1')
+
+    @app.route('/')
+    def main():
+        return jsonify({'success': True})
 
     @app.errorhandler(500)
     def internal_server_error():
