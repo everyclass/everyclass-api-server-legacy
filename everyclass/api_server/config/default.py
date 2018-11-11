@@ -54,11 +54,4 @@ class Config(object):
         'PORT': 8888
     }
 
-    """
-    维护模式
-    """
-    MAINTENANCE_FILE = os.path.join(os.getcwd(), 'maintenance')
-    if os.path.exists(MAINTENANCE_FILE):
-        MAINTENANCE = True
-    else:
-        MAINTENANCE = False
+    SWAGGER_UI_DOC_EXPANSION = 'list'
