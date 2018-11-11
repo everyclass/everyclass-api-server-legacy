@@ -4,6 +4,7 @@ import sys
 import logbook
 from elasticapm.contrib.flask import ElasticAPM
 from flask import Flask, jsonify
+from flask_restplus import Api, Resource, fields
 from raven.contrib.flask import Sentry
 from raven.handlers.logbook import SentryHandler
 
@@ -20,6 +21,10 @@ def create_app(offline=False) -> Flask:
     from everyclass.utils.logbook_logstash.formatter import LOG_FORMAT_STRING
 
     app = Flask(__name__)
+
+    api = Api(app, version='1.0', title='EveryClass API',
+              description='EveryClass API beta',
+              )
 
     # load app config
     from everyclass.api_server.config import get_config
@@ -75,20 +80,10 @@ def create_app(offline=False) -> Flask:
                                            logger=logger)
         logger.handlers.append(logstash_handler)
 
-    # 导入并注册 blueprints
-    from everyclass.api_server.views import main_blueprint as main_blueprint
-    from everyclass.api_server.api import api_v1 as api_blueprint
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(api_blueprint, url_prefix='/api/v1')
-
-    @app.route('/')
-    def main():
-        return jsonify({'success': True})
-
-    @app.errorhandler(500)
-    def internal_server_error():
-        return jsonify({'success': False,
-                        'message': 'Server could not response to the request.'})
+    @api.route('/hello')
+    class HelloWorld(Resource):
+        def get(self):
+            return {'hello': 'world'}
 
     logger.info('App created with `{0}` config'.format(app.config['CONFIG_NAME']), stack=False)
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "30131812e48684f5ce7b9fcd1bdc9a6693b6a067167078fd3f92537dfa6ce072"
+            "sha256": "2702409346f8d0a1ae5401a42a65a717e083c6ec96f66cc6ce32404b4058f61e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,13 @@
         ]
     },
     "default": {
+        "aniso8601": {
+            "hashes": [
+                "sha256:547e7bc88c19742e519fb4ca39f4b8113fdfb8fca322e325f16a8bfc6cfc553c",
+                "sha256:e7560de91bf00baa712b2550a2fdebf0188c5fce2fcd1162fbac75c19bb29c95"
+            ],
+            "version": "==4.0.1"
+        },
         "asn1crypto": {
             "hashes": [
                 "sha256:2f1adbb7546ed199e3c90ef23ec95c5cf3585bac7d11fb7eb562a3fe89c64e87",
@@ -139,6 +146,14 @@
             "index": "pypi",
             "version": "==1.0.2"
         },
+        "flask-restplus": {
+            "hashes": [
+                "sha256:3fad697e1d91dfc13c078abcb86003f438a751c5a4ff41b84c9050199d2eab62",
+                "sha256:cdc27b5be63f12968a7f762eaa355e68228b0c904b4c96040a314ba7dc6d0e69"
+            ],
+            "index": "pypi",
+            "version": "==0.12.1"
+        },
         "gitdb2": {
             "hashes": [
                 "sha256:83361131a1836661a155172932a13c08bda2db3674e4caa32368aa6eb02f38c2",
@@ -174,6 +189,13 @@
                 "sha256:f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"
             ],
             "version": "==2.10"
+        },
+        "jsonschema": {
+            "hashes": [
+                "sha256:000e68abd33c972a5248544925a0cae7d1125f9bf6c58280d37546b946769a08",
+                "sha256:6ff5f3180870836cae40f06fa10419f557208175f13ad7bc26caa77beb1f6e02"
+            ],
+            "version": "==2.6.0"
         },
         "logbook": {
             "hashes": [
@@ -234,6 +256,13 @@
             ],
             "index": "pypi",
             "version": "==0.9.2"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:31cb35c89bd7d333cd32c5f278fca91b523b0834369e757f4c5641ea252236ca",
+                "sha256:8e0f8568c118d3077b46be7d654cc8167fa916092e28320cde048e54bfc9f1e6"
+            ],
+            "version": "==2018.7"
         },
         "raven": {
             "hashes": [
