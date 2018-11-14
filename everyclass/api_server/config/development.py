@@ -2,7 +2,7 @@ from everyclass.api_server.config.default import Config
 
 
 class DevelopmentConfig(Config):
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = 'development key'
 
     # Sentry
