@@ -1,10 +1,10 @@
 from flask_restplus import Api
 
-from .student import api as student_ns
-from .teacher import api as teacher_ns
 from .classroom import api as classroom_ns
 from .course import api as course_ns
 from .misc import api as misc_ns
+from .student import api as student_ns
+from .teacher import api as teacher_ns
 
 authorizations = {
     'apikey': {
@@ -30,8 +30,8 @@ api = Api(version='1.0', title='EveryClass API',
           doc='/doc/'
           )
 
-api.add_namespace(student_ns)
-api.add_namespace(teacher_ns)
-api.add_namespace(classroom_ns)
-api.add_namespace(course_ns)
-api.add_namespace(misc_ns, path='')
+api.add_namespace(student_ns, path='/student')
+api.add_namespace(teacher_ns, path='/teacher')
+api.add_namespace(classroom_ns, path='/classroom')
+api.add_namespace(course_ns, path='/course')
+api.add_namespace(misc_ns, path='/')

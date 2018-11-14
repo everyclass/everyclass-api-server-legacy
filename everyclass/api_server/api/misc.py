@@ -3,7 +3,7 @@ from flask_restplus import Namespace, Resource
 api = Namespace('other', description='其他')
 
 
-@api.route('/_search')
+@api.route('_search')
 class Search(Resource):
     def get(self, classroom_id, semester):
         """
