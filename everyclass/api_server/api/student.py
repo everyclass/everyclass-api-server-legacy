@@ -3,7 +3,7 @@ from flask_restplus import Namespace, Resource, fields
 api = Namespace('student', description='学生相关')
 
 student_fields = api.model('Student', {
-    'id'       : fields.String(description='学生 ID', example='============'),
+    'id'        : fields.String(description='学生 ID', example='============'),
     'student_no': fields.String(description='学号', example='3901160407'),
     'name'      : fields.String(description='姓名'),
     'class'     : fields.String(description='班级', example='软件1604'),

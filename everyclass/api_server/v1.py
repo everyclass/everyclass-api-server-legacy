@@ -28,7 +28,8 @@ authorizations = {
 
 api = Api(blueprint,
           version='1.0', title='EveryClass API',
-          description='EveryClass API is currently in beta. We may change the API at any time.',
+          description='EveryClass API is currently in beta. We may change the API at any time. '
+                      'If you see permission denied error, that is because you do not have full access to our API.',
           authorizations=authorizations,
           security='apikey',
           doc='/doc/'
