@@ -18,7 +18,7 @@ def create_app(offline=False) -> Flask:
     """
     from everyclass.utils.logbook_logstash.handler import LogstashHandler
     from everyclass.utils.logbook_logstash.formatter import LOG_FORMAT_STRING
-    from everyclass.api_server.api import api
+    from everyclass.api_server.v1 import blueprint as api_v1
 
     app = Flask(__name__)
 
@@ -76,7 +76,7 @@ def create_app(offline=False) -> Flask:
                                            logger=logger)
         logger.handlers.append(logstash_handler)
 
-    api.init_app(app)
+    app.register_blueprint(api_v1)
 
     logger.info('App created with `{0}` config'.format(app.config['CONFIG_NAME']), stack=False)
 
