@@ -1,6 +1,6 @@
 from flask_restplus import Namespace, Resource
 
-api = Namespace('other', description='其他')
+api = Namespace('misc', description='其他')
 
 
 @api.route('_search')
