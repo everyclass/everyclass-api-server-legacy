@@ -91,6 +91,12 @@ def create_app(outside_container=False) -> Flask:
     from everyclass.api_server.api import blueprint as api_v1_blueprint
 
     app = Flask(__name__)
+
+    # load app config
+    from everyclass.api_server.config import get_config
+    _config = get_config()
+    app.config.from_object(_config)
+
     app.register_blueprint(api_v1_blueprint, url_prefix='/v1')
 
     """
