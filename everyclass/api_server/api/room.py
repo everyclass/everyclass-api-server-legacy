@@ -1,12 +1,11 @@
 # -*- coding: UTF-8 -*-
-# Common package
 import json
 import msgpack
 from flask import abort
 from flask import request
 from flask import jsonify
 from flask import current_app as app
-# Personal package
+
 from api_server import util
 from api_server.api import blueprint
 
