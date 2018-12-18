@@ -40,5 +40,5 @@ def mongo_pool():
     """
     config = get_config()
     pool = pymongo.MongoClient(**getattr(config, 'MONGODB_CONN')
-                               )[config['MONGODB_DB']]
+                               )[getattr(config, 'MONGODB_DB')]
     return pool
