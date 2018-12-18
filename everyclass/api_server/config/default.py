@@ -6,6 +6,25 @@ class Config(object):
     Basic Configurations
     """
     DEBUG = True
+    RESOURCE_AES_KEY = '0000000000'
+
+    """
+    Database
+    """
+    MYSQL_CONFIG = dict(host='127.0.0.1',
+                        user='default_user',
+                        passwd='default_password',
+                        db='everyclass_occam',
+                        port=3306,
+                        charset='utf8mb4')
+    MYSQL_POOL_CONFIG = dict(mincached=1,
+                             maxcached=10,
+                             maxconnections=10)
+    MONGODB_CONN = dict(host='127.0.0.1',
+                        port=27017,
+                        username='default_user',
+                        password='default_password')
+    MONGODB_DB = 'everyclass_occam'
 
     """
     Git Hash

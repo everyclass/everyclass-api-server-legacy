@@ -4,6 +4,7 @@ from Crypto.Cipher import AES
 from binascii import b2a_base64, a2b_base64
 
 from everyclass.api_server import util
+from everyclass.api_server.config import get_config
 
 
 def fill_16(text):
@@ -51,11 +52,11 @@ def aes_decrypt(aes_key, aes_text):
 
 
 def identifier_encrypt(cate, code):
-    return aes_encrypt(util.get_config('aes_key'), "%s;%s" % (cate, code))
+    return aes_encrypt(get_config()['RESOURCE_AES_KEY'], "%s;%s" % (cate, code))
 
 
 def identifier_decrypt(data):
-    data = aes_decrypt(util.get_config('aes_key'), data)
+    data = aes_decrypt(get_config()['RESOURCE_AES_KEY'], data)
     # 通过正则校验确定数据的正确性
     group = re.match('^(student|teacher|klass|room);([A-Za-z0-9]+)$', data)
     if group is None:

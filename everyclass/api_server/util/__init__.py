@@ -19,4 +19,3 @@ from .util import save_to_cache
 from .util import del_from_cache
 from .util import query_from_cache
 from .util import read_from_cache
-from .util import get_config
