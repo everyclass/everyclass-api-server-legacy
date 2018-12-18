@@ -31,9 +31,7 @@ try:
     def init_db():
         """init database connection"""
         import api_server.util
-
         global __app
-
         __app.mysql_pool = api_server.util.mysql_pool()
         __app.mongo_pool = api_server.util.mongo_pool()
 
