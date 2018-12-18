@@ -6,8 +6,8 @@ from flask import request
 from flask import jsonify
 from flask import current_app as app
 
-from api_server import util
-from api_server.api import blueprint
+from everyclass.api_server import util
+from everyclass.api_server.api import blueprint
 
 
 @blueprint.route('/student')
@@ -39,7 +39,7 @@ def get_student_schedule(identifier, semester):
     conn = app.mysql_pool.connection()
     with conn.cursor() as cursor:
         sql = """
-        SELECT 
+        SELECT
         `card`.`name` as course_name,
         `card`.`klassID` as course_cid,
         `card`.`room` as course_room,
@@ -48,9 +48,9 @@ def get_student_schedule(identifier, semester):
         `card`.`lesson` as course_lesson,
         `teacher`.`code` as teacher_tid,
         `teacher`.`name` as teacher_name,
-        `teacher`.`title` as teacher_title 
+        `teacher`.`title` as teacher_title
         FROM `student_%s` as student
-        JOIN `student_link_%s` as s_link USING(sid) 
+        JOIN `student_link_%s` as s_link USING(sid)
         JOIN `card_%s` as card USING(cid)
         JOIN `teacher_link_%s` as t_link USING(cid)
         JOIN `teacher_%s` as teacher USING(tid)

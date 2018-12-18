@@ -1,10 +1,9 @@
 # -*- coding: UTF-8 -*-
-# Common package
 import pymongo
 import pymysql
 from DBUtils.PooledDB import PooledDB
-# Personal package
-from api_server import util
+
+from everyclass.api_server import util
 
 """
 数据库连接与连接池的封装

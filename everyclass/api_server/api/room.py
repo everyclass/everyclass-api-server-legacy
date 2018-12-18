@@ -6,8 +6,8 @@ from flask import request
 from flask import jsonify
 from flask import current_app as app
 
-from api_server import util
-from api_server.api import blueprint
+from everyclass.api_server import util
+from everyclass.api_server.api import blueprint
 
 
 @blueprint.route('/room')
@@ -40,8 +40,8 @@ def get_room_schedule(identifier, semester):
     with conn.cursor() as cursor:
         sql = """
         SELECT
-        `room`.`name` as room_name, 
-        `room`.`building` as room_building, 
+        `room`.`name` as room_name,
+        `room`.`building` as room_building,
         `room`.`campus` as room_campus,
         `card`.`name` as course_name,
         `card`.`klassID` as course_cid,

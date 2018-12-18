@@ -39,9 +39,9 @@ try:
     @uwsgidecorators.postfork
     def init_log_handlers():
         """init log handlers"""
-        from api_server.util.logbook_logstash.handler import LogstashHandler
+        from everyclass.api_server.util.logbook_logstash.handler import LogstashHandler
         from elasticapm.contrib.flask import ElasticAPM
-        from api_server.util import monkey_patch
+        from everyclass.api_server.util import monkey_patch
         ElasticAPM.request_finished = monkey_patch.ElasticAPM.request_finished(ElasticAPM.request_finished)
 
         global __app, __first_spawn, __sentry_available
@@ -86,6 +86,7 @@ def create_app(outside_container=False) -> Flask:
     """创建 flask app
     @param outside_container: 是否不在容器内运行
     """
+    import os
     from flask import jsonify
 
     from everyclass.api_server.util.logbook_logstash.formatter import LOG_FORMAT_STRING
@@ -128,7 +129,7 @@ def create_app(outside_container=False) -> Flask:
     logger.handlers.append(stderr_handler)
 
     # 容器外运行（无 uWSGI）时初始化数据库
-    if outside_container and (app.config['CONFIG_NAME'] == "development"):
+    if outside_container and (os.environ.get("MODE") == 'DEVELOPMENT'):
         app.mysql_pool = mysql_pool()
         app.mongo_pool = mongo_pool()
 
@@ -136,15 +137,15 @@ def create_app(outside_container=False) -> Flask:
     def hello_world():
         return 'Hello World!'
 
-    # 访问参数异常处理
-    @app.errorhandler(400)
-    def bad_request(error):
-        return jsonify({'message': str(error)}), 400
-
     # 查询的资源不存在
     @app.errorhandler(404)
-    def bad_request(error):
+    def not_found_error(error):
         return jsonify({'message': str(error)}), 404
+
+    # 访问参数异常处理
+    @app.errorhandler(400)
+    def bad_request_error(error):
+        return jsonify({'message': str(error)}), 400
 
     global __app
     __app = app

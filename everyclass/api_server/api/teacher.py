@@ -6,8 +6,8 @@ from flask import request
 from flask import jsonify
 from flask import current_app as app
 
-from api_server import util
-from api_server.api import blueprint
+from everyclass.api_server import util
+from everyclass.api_server.api import blueprint
 
 
 @blueprint.route('/teacher')

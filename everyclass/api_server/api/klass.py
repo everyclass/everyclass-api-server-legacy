@@ -6,8 +6,8 @@ from flask import request
 from flask import jsonify
 from flask import current_app as app
 
-from api_server import util
-from api_server.api import blueprint
+from everyclass.api_server import util
+from everyclass.api_server.api import blueprint
 
 
 @blueprint.route('/course')
@@ -43,7 +43,7 @@ def get_klass_schedule(identifier, semester):
     with conn.cursor() as cursor:
         # 查询课程的基础信息
         sql = """
-        SELECT 
+        SELECT
         `card`.`name` as course_name,
         `card`.`room` as course_room,
         `card`.`roomID` as course_rid,
@@ -52,7 +52,7 @@ def get_klass_schedule(identifier, semester):
         `card`.`klass` as course_klass,
         `card`.`pick` as course_pick,
         `card`.`hour` as course_hour,
-        `card`.`type` as course_type 
+        `card`.`type` as course_type
         FROM `card_%s` as `card`
         WHERE klassID = '%s';
         """ % (semester, id_code)
@@ -74,14 +74,14 @@ def get_klass_schedule(identifier, semester):
         }
         # 查询课程的学生信息
         sql = """
-        SELECT 
+        SELECT
         `student`.`code` as student_code,
-        `student`.`name` as student_name, 
-        `student`.`klass` as student_klass, 
-        `student`.`deputy` as student_deputy 
+        `student`.`name` as student_name,
+        `student`.`klass` as student_klass,
+        `student`.`deputy` as student_deputy
         FROM `card_%s` as card
-        JOIN `student_link_%s` as s_link 
-        ON card.cid = s_link.cid AND card.klassID = '%s' 
+        JOIN `student_link_%s` as s_link
+        ON card.cid = s_link.cid AND card.klassID = '%s'
         JOIN `student_%s` as student USING(sid)
         """ % (semester, semester, id_code, semester)
         cursor.execute(sql)
@@ -96,13 +96,13 @@ def get_klass_schedule(identifier, semester):
             klass_data['student'].append(student_data)
         # 查询课程的教师信息
         sql = """
-        SELECT 
+        SELECT
         `teacher`.`code` as student_code,
-        `teacher`.`name` as student_name, 
-        `teacher`.`title` as student_title 
+        `teacher`.`name` as student_name,
+        `teacher`.`title` as student_title
         FROM `card_%s` as card
-        JOIN `teacher_link_%s` as t_link 
-        ON card.cid = t_link.cid AND card.klassID = '%s' 
+        JOIN `teacher_link_%s` as t_link
+        ON card.cid = t_link.cid AND card.klassID = '%s'
         JOIN `teacher_%s` as teacher USING(tid)
         """ % (semester, semester, id_code, semester)
         cursor.execute(sql)

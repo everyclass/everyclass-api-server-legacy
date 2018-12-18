@@ -1,10 +1,9 @@
 # -*- coding: UTF-8 -*-
-# Common package
 import re
 from Crypto.Cipher import AES
 from binascii import b2a_base64, a2b_base64
-# Personal package
-from api_server import util
+
+from everyclass.api_server import util
 
 
 def fill_16(text):
