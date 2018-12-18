@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# Common package
 import os
 import sys
 import time
