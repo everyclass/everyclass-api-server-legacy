@@ -123,3 +123,14 @@ $RECYCLE.BIN/
 everyclass/api_server/config/development.py
 !everyclass/api_server/config/__init__.py
 !everyclass/api_server/config/default.py
+
+# Set for wolfbolin
+*.sql
+dumps
+.idea
+__pycache__
+venv*
+cache
+config*.py
+!config_default.py
+test.py
