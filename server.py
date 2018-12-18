@@ -1,6 +1,12 @@
+import gc
+
 from everyclass.api_server import create_app
 
 app = create_app()
+
+# disable gc and freeze
+gc.set_threshold(0)  # 700, 10, 10 as default
+gc.freeze()
 
 
 if __name__ == '__main__':
