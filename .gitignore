@@ -123,7 +123,6 @@ $RECYCLE.BIN/
 everyclass/api_server/config
 !everyclass/api_server/config/__init__.py
 !everyclass/api_server/config/default.py
-everyclass/api_server/util/logbook_logstash
 
 # Set for wolfbolin
 *.sql
