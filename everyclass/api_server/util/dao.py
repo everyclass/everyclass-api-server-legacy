@@ -3,7 +3,6 @@ import pymongo
 import pymysql
 from DBUtils.PooledDB import PooledDB
 
-from everyclass.api_server import util
 from everyclass.api_server.config import get_config
 
 """
@@ -29,8 +28,8 @@ def mysql_pool():
     """
     config = get_config()
     pool = PooledDB(creator=pymysql,
-                    **config['MYSQL_POOL_CONFIG'],
-                    **config['MYSQL_CONFIG'])  # 建立MySQL连接池
+                    **getattr(config, 'MYSQL_CONFIG'),
+                    **getattr(config, 'MYSQL_POOL_CONFIG'))  # 建立MySQL连接池
     return pool
 
 
@@ -40,6 +39,6 @@ def mongo_pool():
     :return:
     """
     config = get_config()
-    pool = pymongo.MongoClient(**config['MONGODB_CONN']
+    pool = pymongo.MongoClient(**getattr(config, 'MONGODB_CONN')
                                )[config['MONGODB_DB']]
     return pool

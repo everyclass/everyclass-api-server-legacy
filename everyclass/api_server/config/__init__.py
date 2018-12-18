@@ -24,26 +24,26 @@ def get_config():
 
         try:
             if mode == 'PRODUCTION':
-                from everyclass.server.config.production import ProductionConfig
+                from everyclass.api_server.config.production import ProductionConfig
                 _override_config = ProductionConfig
                 MixedConfig.CONFIG_NAME = 'production'
             elif mode == 'DEVELOPMENT':
-                from everyclass.server.config.development import DevelopmentConfig
+                from everyclass.api_server.config.development import DevelopmentConfig
                 _override_config = DevelopmentConfig
                 MixedConfig.CONFIG_NAME = 'development'
             elif mode == 'STAGING':
-                from everyclass.server.config.staging import StagingConfig
+                from everyclass.api_server.config.staging import StagingConfig
                 _override_config = StagingConfig
                 MixedConfig.CONFIG_NAME = 'staging'
             elif mode == 'TESTING':
-                from everyclass.server.config.testing import TestingConfig
+                from everyclass.api_server.config.testing import TestingConfig
                 _override_config = TestingConfig
                 MixedConfig.CONFIG_NAME = 'testing'
             else:
                 MixedConfig.CONFIG_NAME = 'default'
                 logger.error('No valid MODE environment variable specified. Default config will be used.')
         except ImportError:
-            logger.critical('ImportError when importing configuration file')
+            print('ImportError when importing configuration file')
             exit(1)
 
         for key in dir(_override_config):

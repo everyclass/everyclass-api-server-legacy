@@ -17,9 +17,9 @@ class Config(object):
                         db='everyclass_occam',
                         port=3306,
                         charset='utf8mb4')
-    MYSQL_POOL_CONFIG = dict(mincached=1,
-                             maxcached=10,
-                             maxconnections=10)
+    MYSQL_POOL_CONFIG = {'mincached'     : 1,
+                         'maxcached'     : 10,
+                         'maxconnections': 10}
     MONGODB_CONN = dict(host='127.0.0.1',
                         port=27017,
                         username='default_user',
