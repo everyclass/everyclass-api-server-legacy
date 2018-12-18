@@ -41,10 +41,10 @@ def get_room_schedule(identifier, semester):
     conn = app.mysql_pool.connection()
     with conn.cursor() as cursor:
         sql = """
-        SELECT 
+        SELECT
         `room`.`name` as room_name, 
         `room`.`building` as room_building, 
-        `room`.`campus` as room_campus, 
+        `room`.`campus` as room_campus,
         `card`.`name` as course_name,
         `card`.`klassID` as course_cid,
         `card`.`room` as course_room,
@@ -53,11 +53,11 @@ def get_room_schedule(identifier, semester):
         `card`.`lesson` as course_lesson,
         `teacher`.`code` as teacher_tid,
         `teacher`.`name` as teacher_name,
-        `teacher`.`title` as teacher_title 
+        `teacher`.`title` as teacher_title
         FROM `room_all` as room
-        LEFT JOIN `card_%s` as card ON room.code = card.roomID 
+        LEFT JOIN `card_%s` as card ON room.code = card.roomID
         LEFT JOIN `teacher_link_%s` as t_link USING(cid)
-        LEFT JOIN `teacher_%s` as teacher USING(tid) 
+        LEFT JOIN `teacher_%s` as teacher USING(tid)
         WHERE room.code = '%s'
         """ % (semester, semester, semester, id_code)
         cursor.execute(sql)
