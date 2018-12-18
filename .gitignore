@@ -120,7 +120,7 @@ $RECYCLE.BIN/
 **__pycache__
 
 ### Project specific
-everyclass/api_server/config/development.py
+everyclass/api_server/config
 !everyclass/api_server/config/__init__.py
 !everyclass/api_server/config/default.py
 everyclass/api_server/util/logbook_logstash
