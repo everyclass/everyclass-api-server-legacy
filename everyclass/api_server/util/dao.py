@@ -4,7 +4,7 @@ import pymongo
 import pymysql
 from DBUtils.PooledDB import PooledDB
 # Personal package
-import util
+from api_server import util
 
 """
 数据库连接与连接池的封装

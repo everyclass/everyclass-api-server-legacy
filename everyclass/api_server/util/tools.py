@@ -4,7 +4,7 @@ import re
 from Crypto.Cipher import AES
 from binascii import b2a_base64, a2b_base64
 # Personal package
-import util
+from api_server import util
 
 
 def fill_16(text):
