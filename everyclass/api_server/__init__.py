@@ -20,12 +20,10 @@ try:
     these functions will be executed in the same order of definition here.
     """
 
-
     @uwsgidecorators.postfork
     def enable_gc():
         """enable garbage collection"""
         gc.set_threshold(700)
-
 
     @uwsgidecorators.postfork
     def init_db():
@@ -34,7 +32,6 @@ try:
         global __app
         __app.mysql_pool = api_server.util.mysql_pool()
         __app.mongo_pool = api_server.util.mongo_pool()
-
 
     @uwsgidecorators.postfork
     def init_log_handlers():

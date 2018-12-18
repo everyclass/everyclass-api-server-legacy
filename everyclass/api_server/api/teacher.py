@@ -39,7 +39,7 @@ def get_teacher_schedule(identifier, semester):
     conn = app.mysql_pool.connection()
     with conn.cursor() as cursor:
         sql = """
-        SELECT 
+        SELECT
         `card`.`name` as course_name,
         `card`.`klassID` as course_cid,
         `card`.`room` as course_room,
@@ -47,13 +47,13 @@ def get_teacher_schedule(identifier, semester):
         `card`.`week` as course_week,
         `card`.`lesson` as course_lesson,
         `o_teacher`.`code` as teacher_tid,
-        `o_teacher`.`name` as other_teacher_name, 
-        `o_teacher`.`title` as other_teacher_title 
+        `o_teacher`.`name` as other_teacher_name,
+        `o_teacher`.`title` as other_teacher_title
         FROM `teacher_%s` as teacher
         JOIN `teacher_link_%s` as teacher2card ON teacher.tid = teacher2card.tid
         JOIN `card_%s` as card ON teacher2card.cid = card.cid
         JOIN `teacher_link_%s` as card2teacher ON card.cid = card2teacher.cid
-        JOIN `teacher_%s` as o_teacher ON card2teacher.tid = o_teacher.tid 
+        JOIN `teacher_%s` as o_teacher ON card2teacher.tid = o_teacher.tid
         WHERE teacher.`code` = '%s'
         """ % (semester, semester, semester, semester, semester, id_code)
         cursor.execute(sql)
