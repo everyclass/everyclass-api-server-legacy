@@ -18,30 +18,6 @@ class ErrorSignal(Exception):
         return repr(self.value)
 
 
-def print_e(message):
-    print('\033[0;31;0m[ERROR] {}\033[0m'.format(str(message)))
-
-
-def print_d(message):
-    print('\033[0;32;0m[DONE] {}\033[0m'.format(str(message)))
-
-
-def print_w(message):
-    print('\033[0;33;0m[WARNING] {}\033[0m'.format(str(message)))
-
-
-def print_a(message):
-    print('\033[0;34;0m[ACTION] {}\033[0m'.format(str(message)))
-
-
-def print_t(message):
-    print('\033[0;36;0m[TIPS] {}\033[0m'.format(str(message)))
-
-
-def print_i(message):
-    print('\033[0;37;0m[INFO] {}\033[0m'.format(str(message)))
-
-
 def process_bar(now, total, attach=''):
     # 在窗口底部动态显示进度条
     rate = now / total
