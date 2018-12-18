@@ -88,8 +88,10 @@ def create_app(outside_container=False) -> Flask:
     """
     from everyclass.api_server.util.logbook_logstash.formatter import LOG_FORMAT_STRING
     from everyclass.api_server.util import mysql_pool, mongo_pool
+    from everyclass.api_server.api import blueprint as api_blueprint
 
     app = Flask(__name__)
+    app.register_blueprint(api_blueprint, url_prefix='/v1')
 
     """
     每课统一日志机制
