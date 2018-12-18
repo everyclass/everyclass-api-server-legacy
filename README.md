@@ -1,7 +1,7 @@
 # EveryClass-api-server
 
 ![status](https://img.shields.io/badge/status-in%20development-green.svg)
-[![Build Status](https://travis-ci.org/fr0der1c/EveryClass-server.svg?branch=develop)](https://travis-ci.org/fr0der1c/EveryClass-server)
+[![Build Status](https://travis-ci.org/AdmirablePro/everyclass-api-server.svg?branch=master)](https://travis-ci.org/AdmirablePro/everyclass-api-server)
 ![works-on](https://img.shields.io/badge/works%20on-our%20cluster-brightgreen.svg)
 ![python version](https://img.shields.io/badge/python-3.6-blue.svg)
 ![license](https://img.shields.io/badge/license-MPL_2.0-orange.svg)
