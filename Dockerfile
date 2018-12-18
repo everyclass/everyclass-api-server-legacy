@@ -30,7 +30,7 @@ RUN cd / \
     && tar xzf gor_0.16.1_x64.tar.gz \
     && rm gor_0.16.1_x64.tar.gz
 
-COPY . /var/everyclass-server
+COPY . /var/everyclass-api-server
 
 # install Python dependencies
 RUN pip3 install --upgrade pip \
