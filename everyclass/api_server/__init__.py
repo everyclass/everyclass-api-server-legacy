@@ -41,7 +41,7 @@ try:
     @uwsgidecorators.postfork
     def init_log_handlers():
         """init log handlers"""
-        from api_server.util import LogstashHandler
+        from api_server.util.logbook_logstash.handler import LogstashHandler
         from elasticapm.contrib.flask import ElasticAPM
         from api_server.util import monkey_patch
         ElasticAPM.request_finished = monkey_patch.ElasticAPM.request_finished(ElasticAPM.request_finished)
@@ -84,11 +84,12 @@ except ModuleNotFoundError:
     print('ModuleNotFound when importing uWSGI-decorators. Ignore this if you are not launched from uWSGI.')
 
 
-def create_app() -> Flask:
+def create_app(outside_container=False) -> Flask:
     """创建 flask app
     @param outside_container: 是否不在容器内运行
     """
     from everyclass.api_server.util.logbook_logstash.formatter import LOG_FORMAT_STRING
+    from everyclass.api_server.util import mysql_pool, mongo_pool
 
     app = Flask(__name__)
 
@@ -123,6 +124,11 @@ def create_app() -> Flask:
     stderr_handler = logbook.StreamHandler(stream=sys.stderr, bubble=True, level='WARNING')
     stderr_handler.format_string = LOG_FORMAT_STRING
     logger.handlers.append(stderr_handler)
+
+    # 容器外运行（无 uWSGI）时初始化数据库
+    if outside_container and (app.config['CONFIG_NAME'] == "development"):
+        app.mysql_pool = mysql_pool()
+        app.mongo_pool = mongo_pool()
 
     @app.route('/')
     def hello_world():
