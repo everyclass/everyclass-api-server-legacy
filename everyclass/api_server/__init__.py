@@ -86,6 +86,8 @@ def create_app(outside_container=False) -> Flask:
     """创建 flask app
     @param outside_container: 是否不在容器内运行
     """
+    from flask import jsonify
+
     from everyclass.api_server.util.logbook_logstash.formatter import LOG_FORMAT_STRING
     from everyclass.api_server.util import mysql_pool, mongo_pool
     from everyclass.api_server.api import blueprint as api_blueprint
@@ -133,6 +135,16 @@ def create_app(outside_container=False) -> Flask:
     @app.route('/')
     def hello_world():
         return 'Hello World!'
+
+    # 访问参数异常处理
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({'message': str(error)}), 400
+
+    # 查询的资源不存在
+    @app.errorhandler(404)
+    def bad_request(error):
+        return jsonify({'message': str(error)}), 404
 
     global __app
     __app = app
