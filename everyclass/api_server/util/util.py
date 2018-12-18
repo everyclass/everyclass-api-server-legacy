@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
-import time
-
 """
 被其他运行包所引用的工具包
 提供了大部分常用功能
 """
+import os
+import sys
 
 
 # 自定义异常
@@ -34,38 +32,6 @@ def process_bar(now, total, attach=''):
         bar += '%s>%d%%' % ('=' * bar_length, rate_num)
     sys.stdout.write(bar)
     sys.stdout.flush()
-
-
-def print_data_size(data, remarks=''):
-    # 展示变量当前内存消耗状态
-    print_i('{}消耗内存{}kb'.format(remarks, sys.getsizeof(data) / 1024))
-
-
-def print_http_status(result, remarks=''):
-    # 展示网络请求地址与状态，另有附加信息可选
-    if result.status_code == 200 or result.status_code == 302:
-        print_i('%s HTTP状态%d url=%s' % (remarks, result.status_code, result.url))
-    else:
-        print_e('%s HTTP状态%d url=%s' % (remarks, result.status_code, result.url))
-        raise ErrorSignal("网络连接异常或失败，请重试")
-
-
-def save_to_log(name, data):
-    # 将需要存储的日志数据储存在文件中
-    time_now = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
-    log_file_name = './cache/log/%s' % (name + time_now)
-    with open(log_file_name, 'w', encoding='utf8') as file:
-        file.write(str(data))
-    print_t('日志已被存储至 ' + log_file_name)
-
-
-def save_to_output(name, data):
-    # 将调试需要的数据储存在文件中
-    time_now = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
-    output_file_name = './cache/output/%s' % (name + time_now)
-    with open(output_file_name, 'w', encoding='utf8') as file:
-        file.write(str(data))
-    print_t('数据已被存储至 ' + output_file_name)
 
 
 def save_to_cache(semester, folder, name, data):
