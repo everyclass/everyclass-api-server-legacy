@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-uwsgi --ini "/var/everyclass-api-server/deploy/uwsgi.ini"
+uwsgi --ini "/var/app/deploy/uwsgi.ini"
