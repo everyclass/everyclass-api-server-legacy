@@ -1,26 +1,44 @@
-FROM alpine:3.8
+FROM python:3.7.1-slim-stretch
 LABEL maintainer="frederic.t.chan@gmail.com"
-ENV REFRESHED_AT 20180801
+ENV REFRESHED_AT 20181218
 ENV MODE PRODUCTION
 ENV FLASK_ENV production
 ENV PIPENV_VENV_IN_PROJECT 1
-ENV LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8" LC_CTYPE="en_US.UTF-8"
+# ENV LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8"
 
 WORKDIR /var/everyclass-api-server
 
-# 安装 uWSGI 本体和 Python 插件（语言相关的插件不在发行版的包管理器中）
-# uwsgi-python3 依赖uwsgi、python3、musl
-RUN apk add --no-cache git python3 uwsgi uwsgi-python3 \
-    gcc musl-dev libffi-dev openssl-dev python3-dev
+# build uWSGI and Python plugin for current python version
+# reference on how to build uwsgi python plugin: https://bradenmacdonald.com/blog/2015/uwsgi-emperor-multiple-python
 
-# 经测试，如果把本目录在运行时挂载，会导致找不到 build 时生成的虚拟环境，于是只能在这里先把代码加到镜像里
-COPY . /var/everyclass-api-server
+# Why we need these packages?
+# - procps contains useful proccess control commands like: free, kill, pkill, ps, top
+# - wget is quite basic tool
+# - git for using git in our app
+# - gcc, libpcre3-dev for compiling uWSGI
+# - libffi-dev for installing Python package cffi
+# - libssl-dev for installing Python package cryptography
+RUN apt-get update \
+    && apt-get install -y procps wget gcc libpcre3-dev git libffi-dev libssl-dev \
+    && pip install uwsgi
 
+# install gor
+RUN cd / \
+    && mkdir gor \
+    && cd gor \
+    && wget https://github.com/buger/goreplay/releases/download/v0.16.1/gor_0.16.1_x64.tar.gz \
+    && tar xzf gor_0.16.1_x64.tar.gz \
+    && rm gor_0.16.1_x64.tar.gz
+
+COPY . /var/everyclass-server
+
+# install Python dependencies
 RUN pip3 install --upgrade pip \
     && pip3 install pipenv \
     && pipenv sync \
+    && pip3 install uwsgitop \
     && rm -r /root/.cache
 
 ENV UWSGI_HTTP_SOCKET ":80"
 
-CMD ["uwsgi", "--ini", "/var/everyclass-api-server/deploy/uwsgi.ini"]
+CMD ["bash", "deploy/docker-cmd.sh"]
