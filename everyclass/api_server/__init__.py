@@ -28,10 +28,10 @@ try:
     @uwsgidecorators.postfork
     def init_db():
         """init database connection"""
-        import api_server.util
+        import everyclass.api_server.util
         global __app
-        __app.mysql_pool = api_server.util.mysql_pool()
-        __app.mongo_pool = api_server.util.mongo_pool()
+        __app.mysql_pool = everyclass.api_server.util.mysql_pool()
+        __app.mongo_pool = everyclass.api_server.util.mongo_pool()
 
     @uwsgidecorators.postfork
     def init_log_handlers():
