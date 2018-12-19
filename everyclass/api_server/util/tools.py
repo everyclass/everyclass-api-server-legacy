@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 import re
+from binascii import a2b_base64, b2a_base64
+
 from Crypto.Cipher import AES
-from binascii import b2a_base64, a2b_base64
 
 from everyclass.api_server import util
 from everyclass.api_server.config import get_config
@@ -52,11 +53,11 @@ def aes_decrypt(aes_key, aes_text):
 
 
 def identifier_encrypt(cate, code):
-    return aes_encrypt(get_config()['RESOURCE_AES_KEY'], "%s;%s" % (cate, code))
+    return aes_encrypt(getattr(get_config(), 'RESOURCE_AES_KEY'), "%s;%s" % (cate, code))
 
 
 def identifier_decrypt(data):
-    data = aes_decrypt(get_config()['RESOURCE_AES_KEY'], data)
+    data = aes_decrypt(getattr(get_config(), 'RESOURCE_AES_KEY'), data)
     # 通过正则校验确定数据的正确性
     group = re.match('^(student|teacher|klass|room);([A-Za-z0-9]+)$', data)
     if group is None:
@@ -143,13 +144,13 @@ def set_semester_list(mysql_conn, mongo_pool):
     # 向数据库中写入可用学期
     mongo_db = mongo_pool['common']
     mongo_db.update_one(
-        filter={'semester_list': {'$exists': 1}},
-        update={
-            '$set': {
-                'semester_list': semester_list
-            }
-        },
-        upsert=True
+            filter={'semester_list': {'$exists': 1}},
+            update={
+                '$set': {
+                    'semester_list': semester_list
+                }
+            },
+            upsert=True
     )
 
 
@@ -157,6 +158,6 @@ def get_semester_list(mongo_pool):
     # 从MongoDB中查询可用学期列表
     mongo_db = mongo_pool['common']
     result = mongo_db.find_one(
-        filter={'semester_list': {'$exists': 1}},
-        projection={'_id': 0})
+            filter={'semester_list': {'$exists': 1}},
+            projection={'_id': 0})
     return result['semester_list']
