@@ -42,8 +42,8 @@ def get_config():
             else:
                 MixedConfig.CONFIG_NAME = 'default'
                 logger.error('No valid MODE environment variable specified. Default config will be used.')
-        except ImportError:
-            print('ImportError when importing configuration file')
+        except ImportError as e:
+            print('ImportError when importing configuration file: {}'.format(str(e)))
             exit(1)
 
         for key in dir(_override_config):
