@@ -15,6 +15,47 @@ def hello_student():
     return 'Hello student!'
 
 
+@blueprint.route('/student/<string:identifier>', methods=['GET'])
+def get_student(identifier):
+    """
+    通过学生资源ID和学期获取学生某学期的课程表
+    :param identifier: 学生资源标识
+    :return: 该学生在该学期的课程
+    """
+    # 尝试解码学生资源标识
+    try:
+        id_type, id_code = util.identifier_decrypt(identifier)
+    except ValueError:
+        abort(400, '查询的学生信息无法被识别')
+        return
+
+    # 检验数据的正确性
+    if id_type != 'student':
+        abort(400, '查询的信息无法被识别')
+        return
+
+    # 从MongoDB数据库中访问学生课程数据
+    mongo_db = app.mongo_pool['student']
+    mongo_data = mongo_db.find_one({'code': id_code}, {'_id': 0})
+    # 将聚合后的数据转换为序列
+    student_data = {
+        'sid': id_code,
+        'name': mongo_data['name'],
+        'class': mongo_data['klass'],
+        'deputy': mongo_data['deputy'],
+        'semester': mongo_data['semester']
+    }
+
+    # 获取附加参数并根据参数调整传输的数据内容
+    accept = request.values.get('accept')
+
+    # 根据请求类型反馈数据
+    if accept == 'msgpack':
+        return msgpack.dumps(student_data)
+    else:
+        return jsonify(student_data)
+
+
 @blueprint.route('/student/<string:identifier>/<string:semester>', methods=['GET'])
 def get_student_schedule(identifier, semester):
     """
@@ -61,18 +102,18 @@ def get_student_schedule(identifier, semester):
         for data in cursor.fetchall():
             if data[1] not in course_info:
                 course_data = {
-                    'name': data[0],
-                    'cid': data[1],
-                    'room': data[2],
-                    'rid': data[3],
-                    'week': json.loads(data[4]),
-                    'lesson': data[5],
+                    'name'   : data[0],
+                    'cid'    : data[1],
+                    'room'   : data[2],
+                    'rid'    : data[3],
+                    'week'   : json.loads(data[4]),
+                    'lesson' : data[5],
                     'teacher': []
                 }
                 course_info[data[1]] = course_data
             teacher_data = {
-                'tid': data[6],
-                'name': data[7],
+                'tid'  : data[6],
+                'name' : data[7],
                 'title': data[8],
             }
             course_info[data[1]]['teacher'].append(teacher_data)
@@ -82,9 +123,9 @@ def get_student_schedule(identifier, semester):
     mongo_data = mongo_db.find_one({'code': id_code}, {'_id': 0})
     # 将聚合后的数据转换为序列
     student_data = {
-        'sid': id_code,
-        'name': mongo_data['name'],
-        'class': mongo_data['klass'],
+        'sid'   : id_code,
+        'name'  : mongo_data['name'],
+        'class' : mongo_data['klass'],
         'deputy': mongo_data['deputy'],
         'course': list(course_info.values())
     }
