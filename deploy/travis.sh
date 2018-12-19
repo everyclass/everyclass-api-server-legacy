@@ -28,6 +28,6 @@ else
     if [[ "$VERSION" == *_testing ]];then
         sentry-cli releases deploys ${VERSION} new -e testing
     else
-        sentry-cli releases deploys ${VERSION} new -e staging
+        sentry-cli releases deploys ${VERSION} new -e production
     fi
 fi
