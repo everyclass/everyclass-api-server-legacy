@@ -150,6 +150,11 @@ def create_app(outside_container=False) -> Flask:
     def bad_request_error(error):
         return jsonify({'message': str(error)}), 400
 
+    # 访问参数异常处理
+    @app.errorhandler(500)
+    def server_internal_error(error):
+        return jsonify({'message': str(error)}), 500
+
     global __app
     __app = app
 
