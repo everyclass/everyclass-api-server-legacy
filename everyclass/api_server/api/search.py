@@ -74,6 +74,7 @@ def get_search(keyword):
 
     # 对资源编号进行对称加密
     for student in student_data:
+        student['sid_orig'] = student['sid']  # real student id is needed
         student['sid'] = util.identifier_encrypt('student', student['sid'])
     for teacher in teacher_data:
         teacher['tid'] = util.identifier_encrypt('teacher', teacher['tid'])
