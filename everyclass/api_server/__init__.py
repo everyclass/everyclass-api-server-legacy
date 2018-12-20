@@ -69,9 +69,8 @@ try:
 
         import uwsgi
         if uwsgi.worker_id() == 1 and __first_spawn:
-            from everyclass.api_server.util import set_semester_list, mysql_connect, get_semester_list
+            from everyclass.api_server.util import mysql_connect, get_semester_list
 
-            set_semester_list(mysql_connect(), __app.mongo_pool)
             logger.info('数据库可用学期：' + ';'.join(get_semester_list(__app.mongo_pool)))
 
             __first_spawn = False

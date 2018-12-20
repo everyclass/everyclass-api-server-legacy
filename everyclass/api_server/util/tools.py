@@ -129,31 +129,6 @@ def make_week(time_list):
     return result[1:] + '/全周'
 
 
-def set_semester_list(mysql_conn, mongo_pool):
-    # 查询现有的可用学期
-    semester_list = []
-    with mysql_conn.cursor() as cursor:
-        sql = "show tables LIKE 'card_%';"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        for card in result:
-            group = re.match('card_([0-9]{4}-[0-9]{4}-[1-2])', card[0])
-            if group:
-                semester_list.append(group.group(1))
-
-    # 向数据库中写入可用学期
-    mongo_db = mongo_pool['common']
-    mongo_db.update_one(
-            filter={'semester_list': {'$exists': 1}},
-            update={
-                '$set': {
-                    'semester_list': semester_list
-                }
-            },
-            upsert=True
-    )
-
-
 def get_semester_list(mongo_pool):
     # 从MongoDB中查询可用学期列表
     mongo_db = mongo_pool['common']
