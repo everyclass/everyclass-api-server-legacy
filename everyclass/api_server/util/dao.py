@@ -16,7 +16,7 @@ def mysql_connect():
     :return: MySQL连接句柄
     """
     config = get_config()
-    conn = pymysql.connect(**config['MYSQL_CONFIG'])
+    conn = pymysql.connect(**config.MYSQL_CONFIG)
     conn.autocommit(1)  # 定义数据库不自动提交
     return conn
 
@@ -28,8 +28,8 @@ def mysql_pool():
     """
     config = get_config()
     pool = PooledDB(creator=pymysql,
-                    **getattr(config, 'MYSQL_CONFIG'),
-                    **getattr(config, 'MYSQL_POOL_CONFIG'))  # 建立MySQL连接池
+                    **config.MYSQL_CONFIG,
+                    **config.MYSQL_POOL_CONFIG)  # 建立MySQL连接池
     return pool
 
 
@@ -39,6 +39,6 @@ def mongo_pool():
     :return:
     """
     config = get_config()
-    pool = pymongo.MongoClient(**getattr(config, 'MONGODB_CONN')
-                               )[getattr(config, 'MONGODB_DB')]
+    pool = pymongo.MongoClient(**config.MONGODB_CONN
+                               )[config.MONGODB_DB]
     return pool
