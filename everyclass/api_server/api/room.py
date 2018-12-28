@@ -1,10 +1,8 @@
 # -*- coding: UTF-8 -*-
 import json
+
 import msgpack
-from flask import abort
-from flask import request
-from flask import jsonify
-from flask import current_app as app
+from flask import abort, current_app as app, jsonify, request
 
 from everyclass.api_server import util
 from everyclass.api_server.api import blueprint
@@ -70,20 +68,22 @@ def get_room_schedule(identifier, semester):
                 room_data['name'] = data[0]
                 room_data['building'] = data[1]
                 room_data['campus'] = data[2]
+            if not data[4]:  # handle no course in this classroom
+                continue
             if data[4] not in course_info:
                 course_data = {
-                    'name': data[3],
-                    'cid': data[4],
-                    'room': data[5],
-                    'rid': data[6],
-                    'week': json.loads(data[7]),
-                    'lesson': data[8],
+                    'name'   : data[3],
+                    'cid'    : data[4],
+                    'room'   : data[5],
+                    'rid'    : data[6],
+                    'week'   : json.loads(data[7]),
+                    'lesson' : data[8],
                     'teacher': []
                 }
                 course_info[data[4]] = course_data
             teacher_data = {
-                'tid': data[9],
-                'name': data[10],
+                'tid'  : data[9],
+                'name' : data[10],
                 'title': data[11],
             }
             if teacher_data['tid']:
