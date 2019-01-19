@@ -23,7 +23,7 @@ try:
     @uwsgidecorators.postfork
     def enable_gc():
         """enable garbage collection"""
-        gc.set_threshold(700)
+        # gc.set_threshold(700)
 
     @uwsgidecorators.postfork
     def init_db():
