@@ -38,8 +38,6 @@ try:
         """init log handlers"""
         from everyclass.api_server.util.logbook_logstash.handler import LogstashHandler
         from elasticapm.contrib.flask import ElasticAPM
-        from everyclass.api_server.util import monkey_patch
-        ElasticAPM.request_finished = monkey_patch.ElasticAPM.request_finished(ElasticAPM.request_finished)
 
         global __app, __first_spawn, __sentry_available
 
