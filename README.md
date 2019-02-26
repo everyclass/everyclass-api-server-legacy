@@ -19,9 +19,10 @@ To discuss questions regarding the project, I suggest you join our [forum](https
 
 ### Technology stack
 
-- uWSGI: the gateway between programme itself and reverse proxy
+- uWSGI: application server
 - Flask: the micro Python web framework
 - MySQL: relational database
+- Mongodb: NoSQL database
 
 
 ### Using the source
@@ -32,7 +33,7 @@ To discuss questions regarding the project, I suggest you join our [forum](https
 
 ### Contributions, Bug Reports, Feature Requests
 
-This is an open source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here [https://github.com/fr0der1c/EveryClass-api-server/issues](https://github.com/admirable/everyclass-api-server/issues)
+This is an open source project and we would be happy to see contributors who report bugs and file feature requests submitting pull requests as well. Please report issues here [https://github.com/AdmirablePro/everyclass/issues](https://github.com/AdmirablePro/everyclass/issues)) (not issue tracker of this repository!)
 
 ### Branch Policy
 
